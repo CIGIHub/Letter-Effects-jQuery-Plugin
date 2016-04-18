@@ -3,12 +3,10 @@ Ambient and mouse over effects to individual characters.
 
 ## Example Implementations
 
-Target the parent of the text element. 
-
-With no configuring required it will cause the "Close" action to fire. 
+Target the parent of the text you wish of effect. The plugin with wrap the containing characters with `span` elements which it then styles with inline CSS.
 
 ```html
-    <h1 class="randCol">Millennials in government: Interviews with our youngest public servants</h1>
+<h1 class="randCol">Millennials in government: Interviews with our youngest public servants</h1>
 ```
 
 ```javascript

@@ -40,17 +40,25 @@ if (!jQuery.browser) {
 
         // Establish our default settings
         var settings = {
-                       "color": ["red", "green", "blue"],
+                 "effectParam": "color",
+                "effectValues": ["red", "green", "blue", "yellow"],
             "ambientAnimation": true,
              "ambientstrength": .2,
                         "time": .5,
                        "drift": .25,
+                 "ambientEase": "ease-in-out",
               "hoverAnimation": true,
-                   "hoverTime": .3
+                   "hoverTime": .3,
+                   "hoverEase": "ease-in-out",
         };
 
         // User Overides
         var userSettings = $.extend(settings, options);
+        
+        var effectParam = userSettings.effectParam;
+        
+        var ambientEase = userSettings.ambientEase;
+        var hoverEase = userSettings.hoverEase;
         
         var ambientAnimation = userSettings.ambientAnimation;
         var ambientstrength = userSettings.ambientstrength;
@@ -62,10 +70,11 @@ if (!jQuery.browser) {
         var max = time + drift;
         var min = time - drift;
 
-        // User defined colour array
-        var colours = userSettings.color;
-        // Colour inherited from CSS 
-        var originColour = $(this).css("color");
+        // User defined array of values
+        var effectValues = userSettings.effectValues;
+        
+        // Value inherited from CSS 
+        var originValue = $(this).css( effectParam );
         
         var hoverTime = userSettings.hoverTime;
         
@@ -91,43 +100,31 @@ if (!jQuery.browser) {
             
             // Randomize is applied
             var randomTime = (Math.random() * (max - min + 1)) + min;
-            var newColour = "";
+            var newVaule = "";
 
             
             // Change to inherited colour or random colour
             var randomNum = Math.random();        
             if (randomNum > ambientstrength ) {
-                var newColour = originColour;
+                var newVaule = originValue;
             } else {
                 
                 // Change or hold colour    
                 var randomNum = Math.random(); 
                 if (randomNum > 0.6 ) {
                     // Leave the colour or change it
-                    var startColour = $( x ).css("color");                
-                    var newColour = startColour;                    
+                    var startColour = $( x ).css( effectParam );                
+                    var newVaule = startColour;                    
                 } else {
                 // Random sort
-                colours.sort(function() {
+                effectValues.sort(function() {
                     return 0.5 - Math.random()
                 });
-                var newColour = colours[0];
+                var newVaule = effectValues[0];
                 }
             }
 
-            // Choose browser prefix
-            var myTransition = 
-                ($.browser.chrome) ? '-webkit-transition' :
-                ($.browser.mozilla) ? '-moz-transition' :
-                ($.browser.msie) ? '-ms-transition' :
-                ($.browser.opera) ? '-o-transition' : 'transition',
-                myCSSObj = {
-                    color: newColour
-                };
-
-            myCSSObj[myTransition] = 'color ' + randomTime + 's ease-in-out';
-
-            $(x).css(myCSSObj);
+            Transition(x, newVaule);
 
         };
         
@@ -135,29 +132,16 @@ if (!jQuery.browser) {
         function hoverEffect(x) {
             
             // Randomize is applied
-            var newColour = "";
+            var newVaule = "";
                               
             // Random sort
-            colours.sort(function() {
+            effectValues.sort(function() {
                 return 0.5 - Math.random()
             });
             
-            var newColour = colours[0];    
+            var newVaule = effectValues[0];    
 
-            // Choose browser prefix
-            var myTransition = 
-                ($.browser.chrome) ? '-webkit-transition' :
-                ($.browser.mozilla) ? '-moz-transition' :
-                ($.browser.msie) ? '-ms-transition' :
-                ($.browser.opera) ? '-o-transition' : 'transition',
-                myCSSObj = {
-                    color: newColour
-                };
-
-            myCSSObj[myTransition] = 'color ' + hoverTime + 's ease-in-out';
-
-            $(x).css(myCSSObj);
-
+            Transition(x, newVaule);
         };
         
         
@@ -200,6 +184,25 @@ if (!jQuery.browser) {
             };
             
         });
+        
+        // Apply inlineCSS to an element
+        function Transition(targetElement, newVaule) {
+            
+            // Choose browser prefix
+            var myTransition = 
+                ($.browser.chrome) ? '-webkit-transition' :
+                ($.browser.mozilla) ? '-moz-transition' :
+                ($.browser.msie) ? '-ms-transition' :
+                ($.browser.opera) ? '-o-transition' : 'transition',
+                myCSSObj = {
+                    [effectParam]: newVaule
+                };
+
+            myCSSObj[myTransition] = effectParam + ' ' + randomTime + 's ' + hoverEase;
+
+            $(targetElement).css(myCSSObj);
+            
+        };
 
 
         return this;

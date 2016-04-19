@@ -41,14 +41,3 @@ The above would render the following HTML.
 "hoverTime"             : .3,             // Length of the hover transition in seconds
 "hoverEase"             : "ease-in-out"   // Style of CSS transition
 ```
-
-
-                "effectValues": ["red", "green", "blue", "yellow"],
-            "ambientAnimation": true,
-             "ambientstrength": .2,
-                        "time": .5,
-                       "drift": .25,
-                 "ambientEase": "ease-in-out",
-              "hoverAnimation": true,
-                   "hoverTime": .3,
-                   "hoverEase": "ease-in-out",

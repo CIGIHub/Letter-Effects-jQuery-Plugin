@@ -90,7 +90,7 @@ if (!jQuery.browser) {
 
             // Wrap each letter in a span
             $.each(html.split(''), function(k, v) {
-                ret += '<span class="index-' + k + ' character-' + v +'">' + v + '</span>';
+                ret += '<span style="display: inline-block;" class="index-' + k + ' character-' + v +'">' + v + '</span>';
             });
             $( w ).html(ret);
         }

@@ -40,6 +40,7 @@ if (!jQuery.browser) {
 
         // Establish our default settings
         var settings = {
+                   "splitChar": '',
                  "effectParam": "color",
                 "effectValues": ["red", "green", "blue", "yellow"],
             "ambientAnimation": true,
@@ -55,6 +56,7 @@ if (!jQuery.browser) {
         // User Overides
         var userSettings = $.extend(settings, options);
         
+        var splitChar = userSettings.splitChar;
         var effectParam = userSettings.effectParam;
         
         var ambientEase = userSettings.ambientEase;
@@ -89,8 +91,8 @@ if (!jQuery.browser) {
             var ret = "";
 
             // Wrap each letter in a span
-            $.each(html.split(''), function(k, v) {
-                ret += '<span class="index-' + k + ' character-' + v +'">' + v + '</span>';
+            $.each(html.split(splitChar), function(k, v) {
+                ret += '<span class="index-' + k + ' character-' + v +'">' + v + splitChar + '</span>';
             });
             $( w ).html(ret);
         }

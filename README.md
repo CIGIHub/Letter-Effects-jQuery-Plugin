@@ -28,9 +28,28 @@ The above would render the following HTML.
 </h1>
 ```
 
+## Randomize by word
+
+To apply the effect by word adjust the "splitChar" parameter to a space.
+
+```javascript
+$(" .randCol ").letterEffect({
+        "splitChar": ' ' // seperate by spaces (each word)
+});
+```
+
+Or by a different character.
+
+```javascript
+$(" .randCol ").letterEffect({
+        "splitChar": '.' // seperate by periods (each sentance)
+});
+```
+
 ### Default Parameter Settings:
 
 ```
+"splitChar"             : '',             // Groups by every letter
 "effectParam"           : "color",        // CSS property to modify 
 "effectValues"          : ["red", "green", "blue", "yellow"], // an array of string colour codes
 "ambientAnimation"      : true,           // Enable anbient animation
